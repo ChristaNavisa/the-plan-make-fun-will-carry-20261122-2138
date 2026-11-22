@@ -1,9 +1,8 @@
-"""Write the plan to /output/entry.txt.
+#!/usr/bin/env python3
+"""Write the 30-day plan text to the output directory.
 
-The plan: an AI agent turns $100 into the most money in 30 days by
-selling same-day website fixes to small businesses that already pay
-for a website. Everything is executable by an agent alone: scanning
-public listings, emailing owners, patching code, collecting via Stripe.
+Stdlib only, no network. The plan is a single 278-character text
+(1-280 characters allowed) written with no trailing newline.
 """
 
 import os
@@ -18,19 +17,15 @@ PLAN = (
 
 
 def main() -> None:
-    text = PLAN.strip()
-    if not 1 <= len(text) <= 280:
-        raise SystemExit(f"plan is {len(text)} characters, must be 1-280")
-    if not text.strip():
-        raise SystemExit("plan must not be only whitespace")
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
-    os.makedirs(out_dir, exist_ok=True)
-    path = os.path.join(out_dir, "entry.txt")
-    # No trailing newline: the gate counts every character in the file,
-    # so the file holds exactly the plan text and nothing else.
-    with open(path, "w", encoding="utf-8", newline="") as f:
-        f.write(text)
-    print(f"wrote {len(text)} characters to {path}")
+    if not 1 <= len(PLAN) <= 280:
+        raise ValueError(f"plan must be 1-280 characters, got {len(PLAN)}")
+
+    output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    os.makedirs(output_dir, exist_ok=True)
+
+    entry_path = os.path.join(output_dir, "entry.txt")
+    with open(entry_path, "w", encoding="utf-8", newline="") as f:
+        f.write(PLAN)
 
 
 if __name__ == "__main__":
