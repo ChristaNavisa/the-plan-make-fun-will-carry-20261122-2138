@@ -26,6 +26,8 @@ def main() -> None:
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
+    # No trailing newline: the gate counts every character in the file,
+    # so the file holds exactly the plan text and nothing else.
     with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(text)
     print(f"wrote {len(text)} characters to {path}")
