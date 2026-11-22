@@ -1,30 +1,30 @@
-#!/usr/bin/env python3
 """Write the 30-day plan text to the output directory.
 
-Stdlib only, no network. The plan is a single 278-character text
-(1-280 characters allowed) written with no trailing newline.
+The plan: an AI agent turns $100 into the most money in 30 days by
+selling a packaged micro-service that buyers already search for.
+Deterministic: the same bytes on every run, no trailing newline.
 """
 
 import os
 
 PLAN = (
-    "Day 1: scan 500 small-business sites via Google Maps + PageSpeed, "
-    "email owners a free audit + $99 fix. Days 2-30: patch code, collect "
-    "via Stripe, upsell $49/mo care plan. Expect 3 closes = $297 + "
-    "renewals. Edge: sell fixes to owners already paying for a site, "
-    "not a new product."
+    "Sell on Fiverr: 10 SEO Etsy descriptions, $15, 24h delivery. "
+    "Agent writes a pack in 20 min. "
+    "Day 1: list the gig, spend $25 promoting it; "
+    "Etsy sellers already search Fiverr for this. "
+    "1 order/day x 30 = $450. "
+    "Edge: packaged repeatable micro-service buyers want, not a vague SaaS."
 )
 
 
-def main() -> None:
+def main():
     if not 1 <= len(PLAN) <= 280:
         raise ValueError(f"plan must be 1-280 characters, got {len(PLAN)}")
 
-    output_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
-    os.makedirs(output_dir, exist_ok=True)
-
-    entry_path = os.path.join(output_dir, "entry.txt")
-    with open(entry_path, "w", encoding="utf-8", newline="") as f:
+    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+    os.makedirs(out_dir, exist_ok=True)
+    path = os.path.join(out_dir, "entry.txt")
+    with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(PLAN)
 
 
